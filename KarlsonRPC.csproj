@@ -30,9 +30,6 @@
     <RootNamespace>KarlsonMOd</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MelonLoader.ModHandler">
-      <HintPath>..\..\..\..\..\games\Karlson3D\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
