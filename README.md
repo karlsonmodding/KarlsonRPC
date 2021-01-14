@@ -1,5 +1,6 @@
 # KarlsonRPC
 ### Rich Presence for Karlson
+**Note: All runs using this or any mod will not be validated on speedrun.com and may result in punishments**
 ![Example 1](https://i.ibb.co/RCyqdrp/image.png) ![Example 2](https://i.ibb.co/Hd7spjw/image.png)<br>
 
 ## Requirements
