@@ -17,8 +17,8 @@
     
 2. Download [KarlsonRPC](https://github.com/karlsonmodding/KarlsonRPC/releases/latest/download/KarlsonRPC.zip)
 
-3a. Put `KarlsonRPC.dll` in the Mods directory located in your Karlson folder
+3. Put `KarlsonRPC.dll` in the Mods directory located in your Karlson folder
 
-3b. Put `discord-game-sdk.dll` in the root directory (The same directory as `Karlson.exe`)
+4. Put `discord-game-sdk.dll` in the root directory (The same directory as `Karlson.exe`)
 
 Launch!
