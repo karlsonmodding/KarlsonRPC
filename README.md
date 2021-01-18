@@ -23,3 +23,7 @@
 4. Put `discord-game-sdk.dll` in the root directory (The same directory as `Karlson.exe`)
 
 Launch!
+
+<hr>
+
+Melonloader or Lava Gang is not affiliated with KarlsonRPC or karlsonmodding in any way
