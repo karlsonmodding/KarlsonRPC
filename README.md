@@ -32,7 +32,7 @@
 
 4. Close it
 
-Launch Karlson!
+**Launch Karlson!**
 
 <hr>
 
