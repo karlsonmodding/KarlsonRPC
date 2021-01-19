@@ -9,7 +9,7 @@
 
 
 ## Installation
-
+### Manually
 1. Install MelonLoader to Karlson
 
     1. Download the [installer](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe) (And open it)
@@ -22,7 +22,17 @@
 
 4. Put `discord-game-sdk.dll` in the root directory (The same directory as `Karlson.exe`)
 
-Launch!
+### Automatically
+
+1. Download the [Auto-Installer](https://github.com/karlsonmodding/KarlsonRPC/raw/installer/KarlsonRPC-Installer.exe)
+
+2. Drag `Karlson.exe` onto the console (or enter the path manually) and press enter.
+
+3. Wait for it to install
+
+4. Close it
+
+Launch Karlson!
 
 <hr>
 
