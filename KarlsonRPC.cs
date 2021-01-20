@@ -52,7 +52,7 @@ namespace MyProject
 				leveltxt = "Playing " + leveldict[level];
 
             }
-			TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
+			TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
 			
 			var activity = new Discord.Activity
 			{
