@@ -1,5 +1,5 @@
 import os
-import requests
+import urllib.request
 import textprogress
 from io import BytesIO
 from zipfile import ZipFile
@@ -44,9 +44,8 @@ else:
 
     melonzip = BytesIO()
 
-    with requests.Session() as session:
-        with session.get("https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.zip") as r:
-            melonzip.write(r.content)
+    with urllib.request.urlopen(urllib.request.Request("https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.zip")) as r:
+        melonzip.write(r.read())
             
     wheel.stop()
     wheel = textprogress.wheel("Extracting MelonLoader")
@@ -65,9 +64,8 @@ wheel.start()
 
 rpczip = BytesIO()
 
-with requests.Session() as session:
-    with session.get("https://github.com/karlsonmodding/KarlsonRPC/releases/latest/download/KarlsonRPC.zip") as r:
-        rpczip.write(r.content)
+with urllib.request.urlopen(urllib.request.Request("https://github.com/karlsonmodding/KarlsonRPC/releases/latest/download/KarlsonRPC.zip")) as r:
+    rpczip.write(r.read())
 
 wheel.stop()
 wheel = textprogress.wheel("Extracting KarlsonRPC")
@@ -80,4 +78,3 @@ with ZipFile(rpczip) as zipf:
 wheel.stop()
 print("KarlsonRPC Successfully installed! (Press ENTER to exit)")
 input()
-    
