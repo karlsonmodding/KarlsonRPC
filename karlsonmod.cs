@@ -2,7 +2,7 @@ using MelonLoader;
 using System.Collections.Generic;
 using System;
 
-[assembly: MelonInfo(typeof(MyProject.MyMod), "KarlsonRPC", "1.0.0", "Dark42ed#4572")]
+[assembly: MelonInfo(typeof(MyProject.MyMod), "KarlsonRPC", "1.0.1", "Dark42ed#4572")]
 [assembly: MelonGame("Dani", "Karlson")]
 
 
