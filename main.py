@@ -1,6 +1,6 @@
 import os
 import urllib.request
-import textprogress
+from textprogress import wheel
 from io import BytesIO
 from zipfile import ZipFile
 
