@@ -29,7 +29,7 @@ namespace MyProject
 		};
 
 		public Discord.Discord discord = new Discord.Discord(798687396148281404, (ulong)Discord.CreateFlags.NoRequireDiscord);
-
+		public TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
 		public override void OnUpdate()
         {
 			discord.RunCallbacks();
@@ -52,7 +52,6 @@ namespace MyProject
 				leveltxt = "Playing " + leveldict[level];
 
             }
-			TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
 			
 			var activity = new Discord.Activity
 			{
