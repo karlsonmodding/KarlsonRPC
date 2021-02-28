@@ -6,7 +6,7 @@
 ## Requirements
 * .Net Framework 4.7.2 (or greater) Runtime
 * Microsoft Visual C++ 2015-2019 Redistributable
-* A copy of [Karlson](https://danidev.itch.io/karlson)
+* A copy of [Karlson](https://danidev.itch.io/karlson) (Obviously)
 
 
 ## Installation
