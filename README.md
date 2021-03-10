@@ -10,7 +10,7 @@
 
 ## Installation
 
-1. Download the zip file from releases (Make sure to get the `.nomod` version!).
+1. Download the zip file from [releases](https://github.com/karlsonmodding/KarlsonRPC/releases) (Make sure to get the `.nomod` version!).
 This file contains KarlsonRPC, and a vanilla copy of Karlson. Make sure to leave everything in the same place if you move anything around!
 2. Unzip
 3. Run KarlsonRPC.exe (This will automatically start Karlson)
