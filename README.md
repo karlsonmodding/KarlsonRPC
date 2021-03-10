@@ -1,4 +1,4 @@
-# KarlsonRPC
+# KarlsonRPC No-Mod Edition
 ### Rich Presence for Karlson
 **Note: This version is (so far) free to use in runs submitted to speedrun.com**<br>
 ![Example 1](https://i.ibb.co/RCyqdrp/image.png) ![Example 2](https://i.ibb.co/Hd7spjw/image.png)<br>
