@@ -14,3 +14,6 @@
 This file contains KarlsonRPC, and a vanilla copy of Karlson. Make sure to leave everything in the same place if you move anything around!
 2. Unzip
 3. Run KarlsonRPC.exe (This will automatically start Karlson)
+
+<hr>
+Big thanks to brododragon#9251 for the memory pointers!
