@@ -1,40 +1,16 @@
 # KarlsonRPC
 ### Rich Presence for Karlson
-**Note: All runs using this or any mod will not be validated on speedrun.com and may result in punishments**
+**Note: This version is (so far) free to use in runs submitted to speedrun.com**<br>
 ![Example 1](https://i.ibb.co/RCyqdrp/image.png) ![Example 2](https://i.ibb.co/Hd7spjw/image.png)<br>
 
 ## Requirements
 * .Net Framework 4.7.2 (or greater) Runtime
 * Microsoft Visual C++ 2015-2019 Redistributable
-* A copy of [Karlson](https://danidev.itch.io/karlson) (Obviously)
 
 
 ## Installation
-### Manually
-1. Install MelonLoader to Karlson
 
-    1. Download the [installer](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe) (And open it)
-    2. Point the installer to Karlson.exe
-    3. Hit Install!
-    
-2. Download [KarlsonRPC](https://github.com/karlsonmodding/KarlsonRPC/releases/latest/download/KarlsonRPC.zip)
-
-3. Put `KarlsonRPC.dll` in the Mods directory located in your Karlson folder
-
-4. Put `discord-game-sdk.dll` in the root directory (The same directory as `Karlson.exe`)
-
-### Automatically
-
-1. Download the [Auto-Installer](https://github.com/karlsonmodding/KarlsonRPC/raw/installer/KarlsonRPC-Installer.exe)
-
-2. Drag `Karlson.exe` onto the console (or enter the path manually) and press enter.
-
-3. Wait for it to install
-
-4. Close it
-
-**Launch Karlson!**
-
-<hr>
-
-Melonloader or Lava Gang is not affiliated with KarlsonRPC or karlsonmodding in any way
+1. Download the zip file from releases (Make sure to get the `.nomod` version!).
+This file contains KarlsonRPC, and a vanilla copy of Karlson. Make sure to leave everything in the same place if you move anything around!
+2. Unzip
+3. Run KarlsonRPC.exe (This will automatically start Karlson)
