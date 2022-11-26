@@ -1,0 +1,19 @@
+[package]
+name = "KarlsonRPC"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+discord-rich-presence = "0.2.3"
+
+[dependencies.toy-arms]
+version = "0.9.4"
+default-features = false
+features = ["external"]
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
