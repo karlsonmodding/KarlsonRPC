@@ -65,9 +65,9 @@ fn start_loop(process: Process) -> Result<(), Box<dyn std::error::Error>> {
             process.process_handle,
             process.get_module_base("UnityPlayer.dll").unwrap() + 0x01683318,
         )?;
-        let ptr2 = read::<usize>(process.process_handle, ptr1 as usize + 0x48)?;
-        let ptr3 = read::<usize>(process.process_handle, ptr2 as usize + 0x10)?;
-        let val = read::<[u8; 32]>(process.process_handle, ptr3 as usize)?;
+        let ptr2 = read::<usize>(process.process_handle, ptr1 + 0x48)?;
+        let ptr3 = read::<usize>(process.process_handle, ptr2 + 0x10)?;
+        let val = read::<[u8; 32]>(process.process_handle, ptr3)?;
         let string = core::str::from_utf8(&val)?;
         let level = if &string[0..28] == "Assets/Scenes/MainMenu.unity" {
             0
@@ -93,9 +93,9 @@ fn start_loop(process: Process) -> Result<(), Box<dyn std::error::Error>> {
             .large_image("mainmenu")
             .large_text("Main Menu");
 
-        let image_name = name.replace(" ", "").to_lowercase();
+        let image_name = name.replace(' ', "").to_lowercase();
         let assets = if level != 0 {
-            assets.small_image(&image_name).small_text(&name)
+            assets.small_image(&image_name).small_text(name)
         } else {
             assets
         };
