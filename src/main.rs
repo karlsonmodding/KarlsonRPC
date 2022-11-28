@@ -6,6 +6,7 @@ use discord_rich_presence::{
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 use toy_arms::external::{read, Process};
+use toy_arms::external::error::TAExternalError;
 
 const LEVEL_MAP: &[(&str, usize)] = &[
     ("Assets/Scenes/MainMenu.unity", 0),
@@ -40,9 +41,44 @@ const NAME_MAP: &[&str] = &[
 const CLIENT_ID: &str = "798687396148281404";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    loop {
+    let start_time = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)?
+        .as_secs() as i64;
+
+    println!("Connecting to discord");
+    let mut client = DiscordIpcClient::new(CLIENT_ID).unwrap();
+
+    while let Err(err) = client.connect() {
+        println!("Failed to connect to discord with error:\n{}", err);
+        sleep(Duration::from_secs(1));
+    }
+
+    println!("Connected!\n");
+
+    'search: loop {
+        println!("Waiting for Karlson");
         if let Ok(process) = Process::from_process_name("Karlson.exe") {
-            start_loop(process)?;
+            loop {
+                println!("Attempting to start run loop");
+                let ret = start_loop(&process, &mut client, start_time);
+
+                if let Err(error) = ret {
+                    if let Some(taeerror) = error.downcast_ref::<TAExternalError>() {
+                        match &taeerror {
+                            TAExternalError::ReadMemoryFailed(e) => println!("Read failed: {}\n{:?}", e, e),
+                            TAExternalError::SnapshotFailed(e) => {
+                                println!("Snapshot failed, Karlson probably closed\n{}, {:?}", e, e);
+                                continue 'search;
+                            },
+                            error => println!("Run loop failed with error:\n{}\n{:?}", error, error),
+                        }
+                    } else {
+                        println!("Run loop failed with error:\n{}\n", error);
+                    }
+                    
+                }
+                sleep(Duration::from_secs(1));
+            }
         }
         sleep(Duration::from_secs(1));
     }
@@ -50,20 +86,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn start_loop(process: Process) -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = DiscordIpcClient::new(CLIENT_ID).unwrap();
-    client.connect()?;
+fn start_loop(process: &Process, client: &mut DiscordIpcClient, start_time: i64) -> Result<(), Box<dyn std::error::Error>> {
     let mut last_level = usize::MAX;
-    let start_time = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)?
-        .as_secs() as i64;
 
-    println!("Start time is {}", start_time);
     loop {
         sleep(Duration::from_millis(100));
         let ptr1 = read::<usize>(
             process.process_handle,
-            process.get_module_base("UnityPlayer.dll").unwrap() + 0x01683318,
+            process.get_module_base("UnityPlayer.dll")? + 0x01683318,
         )?;
         let ptr2 = read::<usize>(process.process_handle, ptr1 + 0x48)?;
         let ptr3 = read::<usize>(process.process_handle, ptr2 + 0x10)?;
@@ -71,8 +101,10 @@ fn start_loop(process: Process) -> Result<(), Box<dyn std::error::Error>> {
         let string = core::str::from_utf8(&val)?;
         let level = if &string[0..28] == "Assets/Scenes/MainMenu.unity" {
             0
+        } else if let Some(l) = LEVEL_MAP.iter().find(|x| x.0 == string) {
+            l.1
         } else {
-            LEVEL_MAP.iter().find(|x| x.0 == string).unwrap().1
+            continue;
         };
 
         if last_level == level {
