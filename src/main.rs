@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 //UnityPlayer.dll+0x01683318,0x48,0x10,0x00
 use discord_rich_presence::{
     activity::{Activity, Assets, Timestamps},
@@ -82,8 +83,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         sleep(Duration::from_secs(1));
     }
-
-    Ok(())
 }
 
 fn start_loop(process: &Process, client: &mut DiscordIpcClient, start_time: i64) -> Result<(), Box<dyn std::error::Error>> {
@@ -139,8 +138,6 @@ fn start_loop(process: &Process, client: &mut DiscordIpcClient, start_time: i64)
                 .assets(assets),
         )?;
     }
-
-    Ok(())
 }
 
 //UnityPlayer.dll+0x01683318,0x48,0x10,0x00
