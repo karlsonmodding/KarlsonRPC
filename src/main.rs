@@ -47,7 +47,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .as_secs() as i64;
 
     println!("Connecting to discord");
-    let mut client = DiscordIpcClient::new(CLIENT_ID).unwrap();
+    let mut client = DiscordIpcClient::new(CLIENT_ID)?;
 
     while let Err(err) = client.connect() {
         println!("Failed to connect to discord with error:\n{}", err);
@@ -95,7 +95,7 @@ fn start_loop(process: &Process, client: &mut DiscordIpcClient, start_time: i64)
             process.get_module_base("UnityPlayer.dll")? + 0x01683318,
         )?;
         let ptr2 = read::<usize>(process.process_handle, ptr1 + 0x48)?;
-        let ptr3 = read::<usize>(process.process_handle, ptr2 + 0x10)?;
+        let ptr3 = read::<usize>(process.process_handle, ptr2 + 0x10)?; // This read fails when not in-game (in unity configuration), and also sometimes randomly
         let val = read::<[u8; 32]>(process.process_handle, ptr3)?;
         let string = core::str::from_utf8(&val)?;
         let level = if &string[0..28] == "Assets/Scenes/MainMenu.unity" {
