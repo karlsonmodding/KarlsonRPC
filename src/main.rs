@@ -69,6 +69,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             TAExternalError::ReadMemoryFailed(e) => println!("Read failed: {}\n{:?}", e, e),
                             TAExternalError::SnapshotFailed(e) => {
                                 println!("Snapshot failed, Karlson probably closed\n{}, {:?}", e, e);
+                                client.clear_activity()?;
                                 continue 'search;
                             },
                             error => println!("Run loop failed with error:\n{}\n{:?}", error, error),
@@ -90,6 +91,7 @@ fn start_loop(process: &Process, client: &mut DiscordIpcClient, start_time: i64)
 
     loop {
         sleep(Duration::from_millis(100));
+
         let ptr1 = read::<usize>(
             process.process_handle,
             process.get_module_base("UnityPlayer.dll")? + 0x01683318,
@@ -98,33 +100,32 @@ fn start_loop(process: &Process, client: &mut DiscordIpcClient, start_time: i64)
         let ptr3 = read::<usize>(process.process_handle, ptr2 + 0x10)?; // This read fails when not in-game (in unity configuration), and also sometimes randomly
         let val = read::<[u8; 32]>(process.process_handle, ptr3)?;
         let string = core::str::from_utf8(&val)?;
-        let level = if &string[0..28] == "Assets/Scenes/MainMenu.unity" {
-            0
-        } else if let Some(l) = LEVEL_MAP.iter().find(|x| x.0 == string) {
-            l.1
-        } else {
-            continue;
+
+        let level = match LEVEL_MAP.iter().find(|x| x.0 == string) {
+            Some(level) => level.1,
+            None if &string[0..28] == "Assets/Scenes/MainMenu.unity" => 0,
+            None => {
+                continue;
+            }
         };
 
         if last_level == level {
             continue;
-        } else {
-            last_level = level;
-            println!("New level: {}", level);
         }
+        last_level = level;
+        println!("New level: {}", level);
+        
 
         let name = NAME_MAP[level];
-
-        let level_text = match level {
+        let details = match level {
             0 => "In Main Menu".to_string(),
-            x => format!("Playing {}", NAME_MAP[x]),
+            _ => format!("Playing {}", name),
         };
 
-        let assets = Assets::new()
-            .large_image("mainmenu")
-            .large_text("Main Menu");
-
         let image_name = name.replace(' ', "").to_lowercase();
+        let assets = Assets::new()
+            .large_image("mainmenu");
+            
         let assets = if level != 0 {
             assets.small_image(&image_name).small_text(name)
         } else {
@@ -134,7 +135,7 @@ fn start_loop(process: &Process, client: &mut DiscordIpcClient, start_time: i64)
         client.set_activity(
             Activity::new()
                 .timestamps(Timestamps::new().start(start_time))
-                .details(&level_text)
+                .details(&details)
                 .assets(assets),
         )?;
     }
